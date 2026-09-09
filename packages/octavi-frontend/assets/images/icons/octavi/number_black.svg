@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+	<defs>
+		<style >
+			.font-black{ font: italic 180px serif; fill: black; opacity:1;}
+		</style>
+	</defs>
+	<title >
+		number
+	</title>
+	<g id="number">
+		<g id="black">
+            <text x="10" y="90" class="font-black">x</text>
+
+        </g>
+	</g>
+</svg>

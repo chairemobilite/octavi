@@ -1,0 +1,16 @@
+{
+  "MapLoading": "Chargement de la carte",
+  "MapStyleSwitch": "Changement du style de carte",
+
+  "DataSourceCollectionLoadingFromServer": "Chargement des sources de données (serveur)",
+
+  "DataSourceCollectionLoadingFromCollection": "Chargement des sources de données",
+
+  "ParsingCsv": "Lecture du fichier CSV",
+  "ParsingCsvWithLineNumber": "Lecture du fichier CSV ligne ",
+  "pending": "en attente",
+
+  "SavingPreferences": "Sauvegarde des préférences",
+  "SavingPreferencesClass": "Sauvegarde des préférences"
+
+}
