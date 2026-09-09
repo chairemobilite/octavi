@@ -4,10 +4,6 @@ logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-lerna-debug.log*
-
-# Diagnostic reports (https://nodejs.org/api/report.html)
-report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 
 # Runtime data
 pids
@@ -20,12 +16,11 @@ lib-cov
 
 # Coverage directory used by tools like istanbul
 coverage
-*.lcov
 
 # nyc test coverage
 .nyc_output
 
-# Grunt intermediate storage (https://gruntjs.com/creating-plugins#storing-task-files)
+# Grunt intermediate storage (http://gruntjs.com/creating-plugins#storing-task-files)
 .grunt
 
 # Bower dependency directory (https://bower.io/)
@@ -34,30 +29,22 @@ bower_components
 # node-waf configuration
 .lock-wscript
 
-# Compiled binary addons (https://nodejs.org/api/addons.html)
+# Compiled binary addons (http://nodejs.org/api/addons.html)
 build/Release
 
 # Dependency directories
 node_modules/
+*/node_modules/
 jspm_packages/
 
-# TypeScript v1 declaration files
+# Typescript v1 declaration files
 typings/
-
-# TypeScript cache
-*.tsbuildinfo
 
 # Optional npm cache directory
 .npm
 
 # Optional eslint cache
 .eslintcache
-
-# Microbundle cache
-.rpt2_cache/
-.rts2_cache_cjs/
-.rts2_cache_es/
-.rts2_cache_umd/
 
 # Optional REPL history
 .node_repl_history
@@ -68,37 +55,47 @@ typings/
 # Yarn Integrity file
 .yarn-integrity
 
+# Yarn 4 install state and cache (patches and plugins, if any, are committed)
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+
 # dotenv environment variables file
 .env
-.env.test
 
-# parcel-bundler cache (https://parceljs.org/)
-.cache
+# macos
+.DS_Store
+**/.DS_Store
 
-# Next.js build output
-.next
+# react-boilerplate
+build
+stats.json
+.idea
 
-# Nuxt.js build / generate output
-.nuxt
-dist
+# rust
+**/*.rs.bk
 
-# Gatsby files
-.cache/
-# Comment in the public line in if your project uses Gatsby and *not* Next.js
-# https://nextjs.org/blog/next-9-1#public-directory-support
-# public
+# vscode
+.vscode/launch.json
+.vscode/restore-terminals.json
+.vscode/tasks.json
 
-# vuepress build output
-.vuepress/dist
+# custom
+public/dist/
+packages/*/lib
+packages/**/node_modules
+packages/transition/backend/file/
+tests/runtime
+tests/test
 
-# Serverless directories
-.serverless/
+# node profiling data
+profilingData*
 
-# FuseBox cache
-.fusebox/
+#example apps
+examples/**/runtime
+examples/cache
 
-# DynamoDB Local files
-.dynamodb/
-
-# TernJS port file
-.tern-port
+# playwright test output
+**/playwright-report/
+**/test-results/
+**/playwright.config.ts

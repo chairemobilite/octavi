@@ -1,0 +1,54 @@
+{
+    "private": true,
+    "name": "octavi",
+    "version": "0.5.0",
+    "main": "index.js",
+    "author": "Chaire Mobilité",
+    "repository": "github.com/chairemobilite/octavi",
+    "workspaces": [
+        "transition/packages/chaire-lib-common",
+        "transition/packages/chaire-lib-backend",
+        "transition/packages/chaire-lib-frontend",
+        "transition/packages/transition-common",
+        "transition/packages/transition-frontend",
+        "packages/octavi-legacy",
+        "packages/octavi-common",
+        "packages/octavi-backend",
+        "packages/octavi-frontend"
+    ],
+    "scripts": {
+        "setup": "yarn workspace chaire-lib-backend run setup",
+        "setup-test": "yarn workspace chaire-lib-backend run setup-test",
+        "migrate": "yarn workspace chaire-lib-backend run migrate && yarn workspace octavi-backend run migrate",
+        "migrate-test": "yarn workspace chaire-lib-backend run migrate-test && yarn workspace octavi-backend run migrate",
+        "clean": "yarn workspaces foreach -Av run clean",
+        "cleanModules": "yarn workspace octavi-legacy run cleanModules && rimraf node_modules",
+        "compile": "yarn workspaces foreach -Av --topological run compile",
+        "compile:dev": "yarn workspaces foreach -Apiv -j unlimited run compile:dev",
+        "compile:octavi": "yarn workspace octavi-legacy run compile && yarn workspace octavi-common run compile && yarn workspace octavi-frontend run compile && yarn workspace octavi-backend run compile",
+        "create-user": "yarn workspace chaire-lib-backend run create-user",
+        "build:dev": "yarn workspace octavi-frontend run build:dev",
+        "build:prod": "yarn workspace octavi-frontend run build:prod",
+        "start": "yarn workspace octavi-backend run start",
+        "start:debug": "yarn workspace octavi-backend run start:debug",
+        "start:tracing": "yarn workspace octavi-backend run start:tracing",
+        "test": "yarn workspace octavi-legacy run test && yarn workspace octavi-common run test && yarn workspace octavi-backend run test && yarn workspace octavi-frontend run test",
+        "test:sequential": "yarn workspace octavi-backend run test:sequential",
+        "test:ui": "yarn workspace octavi-frontend run test:ui",
+        "test:ui:chrome": "yarn workspace octavi-frontend run test:ui --project 'chrome'",
+        "test:ui:firefox": "yarn workspace octavi-frontend run test:ui --project 'firefox'",
+        "lint": "yarn workspace octavi-common run lint && yarn workspace octavi-backend run lint && yarn workspace octavi-frontend run lint",
+        "format": "yarn workspace octavi-common run format && yarn workspace octavi-backend run format && yarn workspace octavi-frontend run format",
+        "generate-migration": "knex migrate:make",
+        "postinstall": "git -C transition sparse-checkout set --no-cone '/*' '!/yarn.lock'",
+        "reset-submodules": "rimraf transition/ && git submodule update --init --recursive",
+        "test-import": "TRANSITION_DOTENV=/home/gbastien/Mobilite/sources/octavi/.env yarn node packages/octavi-backend/lib/tasks/importTaxiPointsFromApi.task.js --dataSource btm_api --start 2026-09-01 --end 2026-09-02"
+    },
+    "devDependencies": {
+        "knex": "^3.1.0"
+    },
+    "resolutions": {
+        "kdbush": "^3.0.0"
+    },
+    "packageManager": "yarn@4.18.1"
+}

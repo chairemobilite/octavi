@@ -1,0 +1,349 @@
+{
+  "trips": "courses",
+  "trip": "course",
+  "Trips": "Courses",
+  "Trip": "Course",
+  "activities": "activités",
+  "activity": "activité",
+  "Activities": "Activités",
+  "Activity": "Activité",
+  "vehicles": "véhicules",
+  "vehicle": "véhicule",
+  "Vehicles": "Véhicules",
+  "Véhicle": "Véhicule",
+  "drivers": "chauffeurs",
+  "distance": "km",
+  "driver": "chauffeur",
+  "Drivers": "Chauffeurs",
+  "Driver": "Chauffeur",
+  "permits": "permis",
+  "duration": "h",
+  "permit": "permis",
+  "Permits": "Permis",
+  "Permit": "Permis",
+  "operators": "opérateurs",
+  "operator": "opérateur",
+  "Operators": "Opérateurs",
+  "Operator": "Opérateur",
+  "taxis": "taxis",
+  "taxi": "taxi",
+  "Taxis": "Taxis",
+  "Taxi": "Taxis",
+  "Value": "Valeur",
+
+  "Map": "Carte",
+  "Highlights": "Faits saillants",
+
+  "Date" : "Date",
+  "Year" : "Année",
+  "Month": "Mois",
+  "Week" : "Semaine",
+  "WeekFrom": "Semaine du",
+  "Day"  : "Jour",
+  "NoData": "Pas de données",
+  "Error": "Erreur",
+
+  "widgets": {
+    "noWidget": "Pour choisir un widget, cliquer sur \"Ajouter un widget\" dans le menu de droite",
+    "periodString": "sur la période",
+    "hourString": "par heure de la jounée",
+    "dowString": "par jour de la semaine",
+
+    "driver": {
+        "object": "chauffeurs",
+        "count": "Nombre total de chauffeurs de taxi actifs",
+        "mean": "Nombre moyen de chauffeurs de taxi actifs",
+        "distribution": "Distribution du nombre de chauffeurs de taxi actifs",
+        "aggregator": "en fonction du nombre de chauffeurs",
+        "name": "Nombre de chauffeurs",
+        "file": "chauffeurs",
+        "fileCount": "nb chauffeurs",
+        "fileMean": "moy nb chauffeurs"
+    },
+    "vehicles": {
+        "object": "véhicules",
+        "count": "Nombre total de véhicules de taxi actifs",
+        "mean": "Nombre moyen de véhicules de taxi actifs",
+        "distribution": "Distribution du nombre de véhicules de taxi actifs",
+        "aggregator": "en fonction du nombre de véhicules",
+        "name": "Nombre de véhicules",
+        "file": "vehicules",
+        "fileCount": "nb vehicules",
+        "fileMean": "moy nb vehicules"
+    },
+    "operators": {
+        "object": "opérateurs",
+        "count": "Nombre total d'opérateurs de taxi actifs",
+        "mean": "Nombre moyen d'opérateurs de taxi actifs",
+        "distribution": "Distribution du nombre d'opérateurs de taxi actifs",
+        "aggregator": "en fonction du nombre d'opérateurs",
+        "name": "Nombre d'opérateurs",
+        "file": "opérateur",
+        "fileCount": "nb opérateurs",
+        "fileMean": "moy nb opérateur"
+    },
+    "activities": {
+        "object": "activités",
+        "count": "Nombre total d'activités",
+        "mean": "Nombre moyen d'activités",
+        "distribution": "Distribution du nombre d'activités",
+        "aggregator": "en fonction du nombre d'activités",
+        "name": "Nombre d'activités",
+        "file": "activités",
+        "fileCount": "nb activités",
+        "fileMean": "moy nb activités"
+    },
+    "trips": {
+        "object": "courses",
+        "count": "Nombre total de courses",
+        "mean": "Nombre moyen de courses",
+        "distribution": "Distribution du nombre de courses",
+        "aggregator": "en fonction du nombre de courses",
+        "name": "Nombre de courses",
+        "file": "courses",
+        "fileCount": "nb courses",
+        "fileMean": "moy nb courses"
+    },
+    "distance": {
+        "object": "distance",
+        "count": "Distance (km) totale",
+        "mean": "Distance (km) moyenne",
+        "distribution": "Distribution de la distance",
+        "aggregator": "en fonction de la distance",
+        "name": "Distance",
+        "file": "distance",
+        "fileCount": "distance tot",
+        "fileMean": "distance moy"
+    },
+    "duration": {
+        "object": "durée",
+        "count": "Durée (minutes) totale",
+        "mean": "Durée (minutes) moyenne",
+        "distribution": "Distribution de la durée",
+        "aggregator": "en fonction de la durée",
+        "name": "Durée",
+        "file": "durée",
+        "fileCount": "durée tot",
+        "fileMean": "durée moy"
+    },
+    "spatial": {
+        "distribution": {
+            "bySR" : "Distribution des secteurs de Recensement",
+            "bySM" : "Distribution des secteurs Municipaux"
+        },
+        "file": {
+            "bySR" : "dist sect recensement",
+            "bySM" : "dist sect municipal"
+        }
+    }
+  },
+
+  "widgetOptions": {
+    "title": "Sélectionner les options pour le widget :",
+    "mapTitle": "Sélectionner les options de la carte :",
+    "temporalOption": {
+        "title"  : "Option d'agrégation temporelle :",
+        "byMonth": "Par mois",
+        "byWeek" : "Par semaine",
+        "byDay"  : "Par jour",
+        "byHour" : "Par heure",
+        "none"   : "Aucun"
+    },
+    "geographicalOption": {
+        "title"        : "Option d'agrégation géographique :",
+        "bySR"         : "Par secteur de Recensement",
+        "bySM"         : "Par secteur Municipal",
+        "none"         : "Aucun",
+        "file": {
+            "bySR"     : "par sect recensement",
+            "bySM"     : "par sect municipal"
+        }
+    },
+    "onLocationOption": {
+        "title"      : "Critère d'agrégation géographique :",
+        "origin"     : "Origine des trajets",
+        "destination": "Destination des trajets",
+        "file": {
+            "origin" : "origine",
+            "destination" : "destination"
+        }
+    },
+    "objectOption": {
+        "title"     : "Option d'agrégation par objet :",
+        "operators" : "Par opérateur",
+        "driver"    : "Par chauffeur",
+        "vehicles"  : "Par véhicule",
+        "activities": "Par activité",
+        "none"      : "Aucun"
+    },
+    "graphOption": {
+        "title"                 : "Option du graphique :",
+        "objectDistribution"    : "Distribution par objet d'agrégation",
+        "spatialDistribution"   : "Distribution par agrégation géographique",
+        "temporalMean"          : "Moyenne journalière de la valeur"
+    },
+    "statusOption": {
+        "title"         : "Option de statut du véhicule :",
+        "unavailable"   : "Indisponible",
+        "oncoming"      : "En approche",
+        "occupied"      : "Occupé",
+        "free"          : "Libre",
+        "none"          : "Aucun",
+        "titleFirstPart": "avec le statut",
+        "trips": "des courses"
+    },
+    "mapObject": {
+        "title" : "Objet principal :",
+        "driver": "Nombre de chauffeurs",
+        "vehicles": "Nombre de véhicules",
+        "operators": "Nombre d'opérateurs",
+        "activities": "Nombre de courses",
+        "distance": "Distances parcourues",
+        "duration": "Durées de courses"
+    },
+    "tripPart": {
+        "title" : "Partie du trajet :",
+        "originMap": "Origine des trajets",
+        "destinationMap" : "Destination des trajets"
+    },
+    "mapStyle": {
+        "title"     : "Type d'agrégation géographique :",
+        "SRMap"     : "Par secteur de Recensement",
+        "SMMap"     : "Par secteur Municipal"
+    },
+    "scaleOptions": {
+        "button": "Modifier l'échelle",
+        "popupTitle": "Sélectionner les options de l'échelle",
+        "title": "Type d'échelle :",
+        "intervalBased": "Intervalles égaux",
+        "distributionBased": "Nombres égaux",
+        "custom": "Personnalisée"
+    },
+    "customScaleOptions": {
+        "title": "Intervalles de l'échelle :",
+        "error": "L'échelle proposée n'est pas valide. Les cassures doivent être mise en ordre croissant et comprises entre le minimum et le maximum.",
+        "minValue": "Valeur minimale :",
+        "break_1": "Première cassure :",
+        "break_2": "Deuxième cassure :",
+        "break_3": "Troisième cassure :",
+        "break_4": "Quatrième cassure :",
+        "maxValue": "Valeur maximale :"
+    }
+  },
+
+  "filters": {
+    "sectionName": "Sélection des filtres",
+    "comparison": {
+        "sectionName": "Comparer deux périodes",
+        "filterOne": "Première période",
+        "filterTwo": "Seconde période"
+    },
+    "calendar": {
+        "sectionName": "Période de validité"
+    },
+    "widgets":{
+        "sectionName": "Ajouter un widget",
+        "popupTitle": "Sélectionner le widget à ajouter.",
+        "labelTrips": "Nombre de courses",
+        "labelActivities": "Nombre d'activités",
+        "labelVehicles": "Nombre de véhicules",
+        "labelDrivers": "Nombre de chauffeurs",
+        "labelOperators": "Nombre d'opérateurs",
+        "labelDistance": "Longueur des activités",
+        "labelDistanceTrip": "Longueur des courses",
+        "labelDuration": "Durée des activités",
+        "labelDurationTrip": "Durée des courses"
+    },
+    "mapWidget":{
+        "sectionName": "Options de la carte"
+    },
+    "temporal": {
+        "sectionName": "Filtres temporels",
+        "hour": "Heure",
+        "day": "Jour",
+        "hour_" : {
+            "0_6"  : "0 à 6h",
+            "6_9"  : "6 à 9h",
+            "9_15" : "9 à 15h",
+            "15_18": "15 à 18h",
+            "18_24": "18 à 24h",
+            "other": "Autre"
+        },
+        "customHours": {
+            "name": "Filtre personnalisé",
+            "addButton": "Ajouter une plage"
+        },
+        "day_" : {
+            "monday"         : "Lundi",
+            "tuesday"        : "Mardi",
+            "wednesday"      : "Mercredi",
+            "thursday"       : "Jeudi",
+            "friday"         : "Vendredi",
+            "saturday"       : "Samedi",
+            "sunday"         : "Dimanche",
+            "business_day"   : "Jour ouvré",
+            "non_working_day": "Jour non ouvré",
+            "weekend"        : "Fin de semaine"
+        }
+    },
+    "spatial": {
+        "sectionName": "Filtres spatiaux",
+        "origin": "Origine",
+        "destination": "Destination",
+        "select": "Sélectionner les zones",
+        "map": "Sélectionner les zones du filtre",
+        "mapAggregation": {
+            "lvl0":"Secteur de Recensement",
+            "lvl1":"Secteur Municipal"
+        },
+        "groupedZones": {
+            "northShore": "Couronne Nord",
+            "southShore": "Couronne Sud",
+            "mtl": "Île de Montréal",
+            "outterCMM": "Extérieur de la CMM"
+        },
+        "message": {
+            "MapLoading" : "Chargement des données spatiales"
+        },
+        "zoneCount": "zone(s) sélectionnée(s)"
+
+    },
+    "submit": {
+        "applyNewFilters"              : "Appliquer les nouveaux filtres",
+        "filterApplied"                : "Les filtres sont appliqués",
+        "filterNeedChangeToAllowSubmit": "Changer les filtres pour débloquer le bouton Valider"
+    }
+  },
+
+  "charts": {
+    "numberOf": "Nombre de",
+    "by": "par",
+    "bySR" : "secteurs de Recensement",
+    "bySM" : "secteurs Municipaux",
+    "origin" : "d'origine",
+    "destination" : "de destination"
+  },
+  "maps": {
+      "popup": {
+          "SMName": "Secteur de Recensement",
+          "SRName": "Secteur Municipal"
+      }
+  },
+
+  "filesExport": {
+    "hour": "heure",
+    "weekDay": "jour de semaine",
+    "filters": {
+        "title": "Caractéristique du filtre appliqué :",
+        "period": "Période d'application : ",
+        "temporal": "Filtres temporels :",
+        "hour": "Filtre(s) appliqué(s) sur l'heure de la journée",
+        "hourCustom": "Heures personnalisées",
+        "dow": "Filtre(s) appliqué(s) sur les jours de la semaine",
+        "spatial": "Filtres spatiaux",
+        "origin": "Filtre(s) appliqué(s) sur les secteurs d'origine des activités",
+        "destination": "Filtre(s) appliqué(s) sur les secteurs de destinations des activités",
+        "none": "Aucun"
+    }
+  }
+}

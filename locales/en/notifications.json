@@ -1,0 +1,15 @@
+{
+  "MapLoading": "Loading map",
+  "MapStyleSwitch": "Switching map style",
+
+  "DataSourceCollectionLoadingFromServer": "Loading data sources from server",
+
+  "DataSourceCollectionLoadingFromCollection": "Loading data sources",
+
+  "ParsingCsv": "Parsing CSV file",
+  "ParsingCsvWithLineNumber": "Parsing CSV file row",
+  "pending": "pending",
+
+  "SavingPreferences": "Saving preferences",
+  "SavingPreferencesClass": "Saving preferences"
+}

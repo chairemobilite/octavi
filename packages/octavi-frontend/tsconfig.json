@@ -1,0 +1,17 @@
+{
+    "extends": "../../transition/configs/react.tsconfig.json",
+    "compilerOptions": {
+        "outDir": "lib",
+        "rootDir": "src",
+        "isolatedModules": false, // Should be removed to inherit the true eventually
+        "noImplicitAny": false, // Should be removed to inherit the true eventually
+    },
+    "include": [
+        "src/**/*"
+    ],
+    "exclude": [
+        "node_modules",
+        "**/__tests__",
+        "**/*.test.ts"
+    ]
+}

@@ -1,0 +1,248 @@
+/*
+ * Copyright 2022, Polytechnique Montreal and contributors
+ *
+ * This file is licensed under the MIT License.
+ * License text available at https://opensource.org/licenses/MIT
+ */
+const fs = require('fs');
+const path = require('path');
+const webpack = require('webpack');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const CompressionPlugin = require('compression-webpack-plugin');
+require('chaire-lib-backend/lib/config/dotenv.config');
+
+if (!process.env.NODE_ENV) {
+    process.env.NODE_ENV = 'development';
+}
+
+// Make sure Octavi specific config are loaded
+// TODO Actually have an octavi specific config type
+require('octavi-common/lib/config/project.config');
+// Read the configuration file
+const configuration = require('chaire-lib-backend/lib/config/server.config');
+// Extract from the config all options that we should not send to the frontend.
+// The `{ ...config }` will be sent to the frontend
+// TODO This won't be necessary once we have frontend and backend configuration separated
+const { trRoutingCacheAllScenarios, routing, ...config } = configuration.default
+    ? configuration.default
+    : configuration;
+
+// Public directory from which files are served
+const publicDirectory = path.join(__dirname, '..', '..', 'public');
+const bundleOutputPath = path.join(publicDirectory, 'dist', config.projectShortname);
+const entryFileName = './lib/app-octavi.js';
+
+module.exports = (env) => {
+    console.log(`building js for project ${config.projectShortname}`);
+    console.log('process.env.NODE_ENV', process.env.NODE_ENV);
+
+    const isProduction = process.env.NODE_ENV === 'production';
+
+    // Make sure all builds have different names if not a production bundle
+    const bundleFileName = isProduction
+        ? `octavi-${config.projectShortname}-bundle-${process.env.NODE_ENV}.[contenthash].js`
+        : `octavi-${config.projectShortname}-bundle-${process.env.NODE_ENV}.dev.js`;
+    const styleFileName = isProduction
+        ? `octavi-${config.projectShortname}-styles.[contenthash].css`
+        : `octavi-${config.projectShortname}-styles.dev.css`;
+    // HTML main file name
+    const htmlFileName = path.join(`index-${config.projectShortname}.html`);
+
+    // In dev, style-loader injects CSS via <style> so SCSS changes apply after reload without a separate .css file
+    const styleLoader = isProduction ? MiniCssExtractPlugin.loader : 'style-loader';
+    const chaireLibFrontendRoot = path.dirname(require.resolve('chaire-lib-frontend/package.json'));
+    const octaviFrontendRoot = __dirname;
+
+    const languages = config.languages || ['fr', 'en'];
+    const languagesFilter = `/${languages.join('|')}/`;
+
+    // TODO Custom styles and locales should be set in config (#419, #420)
+    const customStylesFilePath = `${config.projectDir}/styles/styles.scss`;
+    const maplibreDist = path.join(path.dirname(require.resolve('maplibre-gl/package.json')), 'dist');
+    const entry = fs.existsSync('./' + customStylesFilePath)
+        ? [entryFileName, './' + customStylesFilePath]
+        : [entryFileName];
+    const includeDirectories = [
+        path.join(__dirname, 'lib'),
+        path.join(__dirname, 'lib', entryFileName),
+        path.join(__dirname, 'assets'),
+    ];
+
+    return {
+        // Controls which information to display (see https://webpack.js.org/configuration/stats/)
+        stats: {
+            errorDetails: true,
+            children: true
+        },
+        node: {
+            // global will be deprecated at next major release, see where it is being used
+            global: 'warn'
+        },
+        mode: process.env.NODE_ENV,
+        entry,
+        output: {
+            path: bundleOutputPath,
+            filename: bundleFileName,
+            publicPath: '/dist/'
+        },
+        watchOptions: {
+            // In dev, watch chaire-lib-frontend so CSS/TS changes trigger rebuild
+            // Exclude lib/styles from chaire-lib-frontend and transition-frontend since we use alias to point to src/styles
+            ignored: isProduction
+                ? // In production, ignore all node_modules to avoid rebuilding the whole project
+                new RegExp('node_modules/')
+                : /* Ignore all node_modules except chaire-lib-frontend,
+                and also specifically ignore the lib/styles directory of chaire-lib-frontend and transition-frontend
+                (which we override via an alias to src/styles).
+                Paths are normalized and escaped: .replace(/\\/g,'/') for forward slashes and
+                .replace(/[.*+?^${}()|[\]\\]/g,'\\$&') escapes regex metacharacters (. * + ? ^ $ { } ( ) | [ ] \)
+                 so the path is matched literally (e.g. paths with parentheses like "Program Files (x86)"). */
+                new RegExp(
+                    `(node_modules\\/(?!chaire-lib-frontend)|${path
+                        .join(chaireLibFrontendRoot, 'lib', 'styles')
+                        .replace(/\\/g, '/')
+                        .replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}|${path
+                        .join(octaviFrontendRoot, 'lib', 'styles')
+                        .replace(/\\/g, '/')
+                        .replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`
+                ),
+            aggregateTimeout: 600
+        },
+        module: {
+            rules: [
+                {
+                    test: /\.tsx?$/,
+                    use: 'ts-loader',
+                    exclude: /node_modules/
+                },
+                {
+                    use: 'json-loader',
+                    test: /\.geojson$/,
+                    include: includeDirectories
+                },
+                {
+                    test: /\.(ttf|woff2|woff|eot|svg)$/,
+                    type: 'asset'
+                },
+                {
+                    test: /\.glsl$/,
+                    use: 'ts-shader-loader'
+                },
+                {
+                    test: /\.s?css$/,
+                    use: [
+                        styleLoader, // In dev, style-loader injects CSS via <style> so SCSS changes apply after reload without a separate .css file
+                        {
+                            loader: 'css-loader',
+                            options: {
+                                sourceMap: true
+                            }
+                        },
+                        {
+                            loader: 'sass-loader',
+                            options: {
+                                sourceMap: true
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        plugins: [
+            new CleanWebpackPlugin({
+                dry: !isProduction,
+                verbose: true,
+                cleanAfterEveryBuildPatterns: ['**/*', '!images/**', '!*.html']
+            }),
+            new HtmlWebpackPlugin({
+                filename: htmlFileName,
+                template: path.join(publicDirectory, 'index.html')
+            }),
+            new MiniCssExtractPlugin({
+                filename: styleFileName
+            }),
+            new webpack.DefinePlugin({
+                'process.env': {
+                    IS_BROWSER: JSON.stringify(true),
+                    HOST: JSON.stringify(process.env.HOST),
+                    PROJECT_SOURCE: JSON.stringify(process.env.PROJECT_SOURCE),
+                    IS_TESTING: JSON.stringify(process.env.NODE_ENV === 'test')
+                },
+                __CONFIG__: JSON.stringify({
+                    ...config
+                })
+            }),
+            new webpack.optimize.AggressiveMergingPlugin(), //Merge chunks
+            new CompressionPlugin({
+                filename: '[path][base].gz[query]',
+                algorithm: 'gzip',
+                test: /\.js$|\.css$/,
+                threshold: 0,
+                minRatio: 0.8
+            }),
+            new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, new RegExp(languagesFilter)),
+            new webpack.ContextReplacementPlugin(/date\-fns[\/\\]/, new RegExp(languagesFilter)),
+            new CopyWebpackPlugin({
+                patterns: [
+                    {
+                        context: path.join(__dirname, 'lib', 'assets'),
+                        from: '**/*',
+                        to: '',
+                        noErrorOnMissing: true
+                    }, {
+                        context: path.join(__dirname, 'assets'),
+                        from: '**/*',
+                        to: '',
+                        noErrorOnMissing: true
+                    },
+                    // MapLibre 6 no longer embeds the tile worker in the main bundle.
+                    // https://maplibre.org/maplibre-gl-js/docs/guides/v5-to-v6-migration-guide/
+                    // It loads maplibre-gl-worker.mjs with `new Worker(url, { type: 'module' })`.
+                    // setWorkerUrl() only receives a URL, so webpack does not bundle that file.
+                    // Current browsers support module workers and do not fall back to a classic chunk.
+                    {
+                        from: path.join(maplibreDist, 'maplibre-gl-worker.mjs'),
+                        to: 'maplibre-gl-worker.mjs'
+                    }
+                ]
+            })
+        ],
+        resolve: {
+            mainFields: ['browser', 'main', 'module'],
+            modules: ['node_modules'],
+            extensions: ['.json', '.js', '.ts', '.tsx'],
+            // In dev, read SCSS from chaire-lib-frontend and transition-frontend source so changes apply without running copy-files.
+            // maplibre-gl only publishes an "import" condition. tsc emits require(), which does not
+            // match it.
+            // Accepting "import" for every require() loads ESM helpers and breaks
+            // _interopRequireDefault in packages such as rc-menu.
+            alias: {
+                'maplibre-gl$': path.join(maplibreDist, 'maplibre-gl.mjs'),
+                ...(isProduction
+                    ? {}
+                    : {
+                        [path.join(chaireLibFrontendRoot, 'lib', 'styles')]: path.join(
+                            chaireLibFrontendRoot,
+                            'src',
+                            'styles'
+                        ),
+                        [path.join(octaviFrontendRoot, 'lib', 'styles')]: path.join(
+                            octaviFrontendRoot,
+                            'src',
+                            'styles'
+                        )
+                    })
+            },
+            fallback: { path: false }
+        },
+        devtool: isProduction ? 'cheap-source-map' : 'eval-source-map',
+        devServer: {
+            contentBase: publicDirectory,
+            historyApiFallback: true,
+            publicPath: '/dist/' + config.projectShortname
+        }
+    };
+};
