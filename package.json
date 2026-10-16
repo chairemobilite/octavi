@@ -40,7 +40,7 @@
         "lint": "yarn workspace octavi-common run lint && yarn workspace octavi-backend run lint && yarn workspace octavi-frontend run lint",
         "format": "yarn workspace octavi-common run format && yarn workspace octavi-backend run format && yarn workspace octavi-frontend run format",
         "generate-migration": "knex migrate:make",
-        "postinstall": "git -C transition sparse-checkout set --no-cone '/*' '!/yarn.lock'",
+        "postinstall": "test ! -e transition/.git || git -C transition sparse-checkout set --no-cone '/*' '!/yarn.lock'",
         "reset-submodules": "rimraf transition/ && git submodule update --init --recursive",
         "test-import": "TRANSITION_DOTENV=/home/gbastien/Mobilite/sources/octavi/.env yarn node packages/octavi-backend/lib/tasks/importTaxiPointsFromApi.task.js --dataSource btm_api --start 2026-09-01 --end 2026-09-02"
     },
