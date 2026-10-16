@@ -1,0 +1,119 @@
+# Workflow to verify the code style of the commit, that it builds correctly
+# and make sure unit tests run too with all supported node versions
+
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [24.x]
+    env:
+      PROJECT_CONFIG: ${{ github.workspace }}/examples/demo_octavi/config.js
+    steps:
+    - uses: actions/checkout@v7
+      with:
+        submodules: recursive
+    - name: copy env file
+      run: cp .env.example .env
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v7
+      with:
+        node-version: ${{ matrix.node-version }}
+    - name: Install
+      run: yarn
+    - name: Compile
+      run: yarn compile
+    - name: Build Client bundle
+      run: yarn build:prod
+    - name: Unit Test
+      run: yarn test
+
+  code-lint:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v7
+      with:
+        submodules: recursive
+    - name: Use latest Node.js
+      uses: actions/setup-node@v7
+      with:
+        node-version: latest
+    - name: Install
+      run: yarn install
+    - name: Compile
+      run: yarn compile
+    - name: Lint
+      run: yarn lint
+
+  check-format:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v7
+      with:
+        submodules: recursive
+    - name: Use latest Node.js
+      uses: actions/setup-node@v7
+      with:
+        node-version: 24.x
+    - name: Install
+      # We do not use --frozen-lockfile to check if we forgot to commit the yarn.lock
+      run: yarn install
+    - name: Yarn format
+      run: yarn format
+    - name: Check git status
+      run: |
+        if [[ -n "$(git status --porcelain)" ]]; then
+          echo "Code formatting issues found. Please run 'yarn format' locally and commit changes."
+          git status
+          git diff
+          exit 1
+        fi
+
+  test-sequential:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgis/postgis
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        env:
+          POSTGRES_USER: testuser
+          POSTGRES_PASSWORD: testpassword
+          POSTGRES_DB: testdb
+    strategy:
+      matrix:
+        node-version: [24.x]
+    env:
+      PG_CONNECTION_STRING_PREFIX: postgres://testuser:testpassword@localhost:5432/
+      PG_DATABASE_TEST: testdb
+    steps:
+    - uses: actions/checkout@v7
+      with:
+        submodules: recursive
+    - name: copy env file
+      run: cp .env.example .env
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v7
+      with:
+        node-version: ${{ matrix.node-version }}
+    - name: Install
+      run: yarn
+    - name: Compile
+      run: yarn compile
+    - name: Create Test DB
+      run: yarn setup-test && yarn migrate-test
+    - name: Run sequential tests
+      run: yarn test:sequential

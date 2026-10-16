@@ -1,0 +1,18 @@
+# Atttempt retry on stalled coderabbit review
+# See file in Transition repo
+
+on:
+  schedule:
+    # Every 3 hours, offset from Transition
+    - cron: "20 4-11/3 * * *"
+  workflow_dispatch:
+
+
+jobs:
+  retry:
+    name: Process rate-limited reviews
+    permissions:
+      pull-requests: write
+      contents: read
+    uses: chairemobilite/transition/.github/workflows/coderabbit-retry.yml@main
+    secrets: inherit
