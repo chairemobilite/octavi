@@ -18,7 +18,7 @@ test.beforeAll(async ({ browser }) => {
     context.page = await testHelpers.initializeTestPage(browser);
 });
 
-loginTestHelpers.startAndLogin({ context, title: 'Transition' });
+loginTestHelpers.startAndLogin({ context, title: 'Octavi' });
 
 // Click on a few sections of the left menu to check that the panel switching
 // works properly.

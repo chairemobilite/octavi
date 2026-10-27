@@ -22,21 +22,21 @@ test.beforeAll(async ({ browser }) => {
 // We switch to english only on the first login, since the language is kept after that
 loginTestHelpers.startAndLogin({
     context,
-    title: 'Transition',
+    title: 'Octavi',
     loginMethod: 'clickLoginButton',
     changeToEnglish: true
 });
 testHelpers.logoutTest({ context });
 loginTestHelpers.startAndLogin({
     context,
-    title: 'Transition',
+    title: 'Octavi',
     loginMethod: 'enterOnPasswordField',
     changeToEnglish: false
 });
 testHelpers.logoutTest({ context });
 loginTestHelpers.startAndLogin({
     context,
-    title: 'Transition',
+    title: 'Octavi',
     loginMethod: 'enterOnUsernameField',
     changeToEnglish: false
 });
