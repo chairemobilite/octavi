@@ -20,7 +20,7 @@
         "setup": "yarn workspace chaire-lib-backend run setup",
         "setup-test": "yarn workspace chaire-lib-backend run setup-test",
         "migrate": "yarn workspace chaire-lib-backend run migrate && yarn workspace octavi-backend run migrate",
-        "migrate-test": "yarn workspace chaire-lib-backend run migrate-test && yarn workspace octavi-backend run migrate",
+        "migrate-test": "yarn workspace chaire-lib-backend run migrate-test && yarn workspace octavi-backend run migrate-test",
         "clean": "yarn workspaces foreach -Av run clean",
         "cleanModules": "yarn workspace octavi-legacy run cleanModules && rimraf node_modules",
         "compile": "yarn workspaces foreach -Av --topological run compile",
