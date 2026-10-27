@@ -21,6 +21,19 @@ module.exports = {
         lat: 45.503205,
         lon: -73.569417
     },
+    languages: ['fr', 'en'],
+
+    locales: {
+      fr: 'fr-CA',
+      en: 'en-CA'
+    },
+
+    languageNames: {
+      fr: "Français",
+      en: "English"
+    },
+
+    defaultLocale: "fr",
   btm: {
     host: "https://taximtl.ville.montreal.qc.ca",
   },
