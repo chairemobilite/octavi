@@ -33,6 +33,12 @@ module.exports = {
       en: "English"
     },
 
+    // Title displayed in the header, for each language. Required by the header component.
+    title: {
+      fr: "Démo",
+      en: "Demo"
+    },
+
     defaultLocale: "fr",
   btm: {
     host: "https://taximtl.ville.montreal.qc.ca",
