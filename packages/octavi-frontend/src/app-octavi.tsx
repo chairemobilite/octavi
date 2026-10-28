@@ -46,7 +46,7 @@ setApplicationConfiguration({
 });
 // Set the application title for the header
 // TODO This is a frontend only configuration, that should be configured in code, not in the config file. When configuration objects are revisited, make sure that is clear and possible
-config.appTitle = 'Transition';
+config.appTitle = 'Octavi';
 
 const store = configureStore();
 const contributions = [new OctaviDashboardContribution()];
