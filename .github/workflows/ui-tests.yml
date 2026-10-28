@@ -62,6 +62,9 @@ jobs:
       run: cp packages/octavi-frontend/playwright-example.config.ts packages/octavi-frontend/playwright.config.ts
     - name: Create test user
       run: yarn create-user --username $PLAYWRIGHT_TEST_USER --email $PLAYWRIGHT_TEST_EMAIL --password $PLAYWRIGHT_TEST_PASSWORD --admin
+    - name: Create taxi data source
+      # The dashboard panels wait for the `btm_api` data source, normally created by the first data import
+      run: psql "${PG_CONNECTION_STRING_PREFIX}${PG_DATABASE_PRODUCTION}" -c "INSERT INTO demo_octavi.tr_data_sources (shortname, name, type) VALUES ('btm_api', 'BTM API', 'taxiTransactions');"
     - name: Start application
       run: yarn start &
       env:
