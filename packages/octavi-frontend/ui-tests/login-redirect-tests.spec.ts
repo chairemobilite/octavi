@@ -24,6 +24,10 @@ test.beforeAll(async ({ browser }) => {
     context.page = await testHelpers.initializeTestPage(browser);
 });
 
+test.afterAll(async () => {
+    await testHelpers.closeTestPage(context);
+});
+
 // Unauthenticated start lands on the login page; switch to english for stable labels.
 testHelpers.hasUrlTest({ context, expectedUrl: '/login' });
 languageTestHelpers.switchFromFrenchToEnglish({ context });

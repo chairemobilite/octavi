@@ -18,6 +18,10 @@ test.beforeAll(async ({ browser }) => {
     context.page = await testHelpers.initializeTestPage(browser);
 });
 
+test.afterAll(async () => {
+    await testHelpers.closeTestPage(context);
+});
+
 loginTestHelpers.startAndLogin({ context, title: 'Octavi' });
 
 // Click on a few sections of the left menu to check that the panel switching

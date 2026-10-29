@@ -84,10 +84,26 @@ export const initializeTestPage = async (
     return page;
 };
 
-// Close the browser after all the tests
-test.afterAll(async ({ browser }) => {
-    browser.close();
-});
+/**
+ * Close the browser context opened by `initializeTestPage`. Each test file
+ * should call this in its own `afterAll` hook.
+ *
+ * The browser itself must not be closed here: Playwright shares it between all
+ * the test files run by the same worker, and closes it when the worker stops.
+ *
+ * @param {Object} context - The test context, whose page was set to the page
+ * returned by `initializeTestPage`.
+ */
+export const closeTestPage = async (context: CommonTestParameters['context']): Promise<void> => {
+    let page: Page;
+    try {
+        page = context.page;
+    } catch {
+        // The page getter throws if the page was not initialized, so there is nothing to close
+        return;
+    }
+    await page.context().close();
+};
 
 const getTestCounter = (context: CommonTestParameters['context'], testKey: string) => {
     const testIdx = context.widgetTestCounters[testKey] || 0;
