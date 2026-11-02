@@ -31,11 +31,11 @@ class TaxiOperatorCollection extends GenericObjectCollection {
   }
 
   loadFromServer(socket, collectionManager) {
-    return CollectionLoadable.loadFromServer.call(this, socket, collectionManager);
+    return CollectionLoadable.loadFromServer(this, socket, collectionManager);
   }
 
   loadFromCollection(collection, collectionManager) {
-    return CollectionLoadable.loadFromCollection.call(this, collection, collectionManager);
+    return CollectionLoadable.loadFromCollection(this, collection, collectionManager);
   }
 }
 

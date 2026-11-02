@@ -44,19 +44,19 @@ class TaxiActivityGeojsonCollection extends ProgressableMapObjectCollection {
   }
 
   saveCache(socket, customCollection) {
-    return CollectionCacheable.saveCache.call(this, socket, customCollection);
+    return CollectionCacheable.saveCache(this, socket, customCollection);
   }
 
   loadCache(socket, customCollection) {
-    return CollectionCacheable.loadCache.call(this, socket, customCollection);
+    return CollectionCacheable.loadCache(this, socket, customCollection);
   }
 
   loadFromServer(socket, dataSourceId) {
-    return CollectionLoadable.loadGeojsonFromServer.call(this, socket, dataSourceId);
+    return CollectionLoadable.loadGeojsonFromServer(this, socket, dataSourceId);
   }
 
   loadFromCollection(collection) {
-    return CollectionLoadable.loadGeojsonFromCollection.call(this, collection);
+    return CollectionLoadable.loadGeojsonFromCollection(this, collection);
   }
 
 }
