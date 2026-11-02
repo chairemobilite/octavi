@@ -2,9 +2,9 @@ import moment from 'moment';
 
 export default function(data, dataSourceId, taxiDriversCollection, taxiPermitsCollection, taxiVehiclesCollection) {
 
-  const driver  = taxiDriversCollection.getByInternalId(data.driver_id);
-  const permit  = taxiPermitsCollection.getByInternalId(data.ads_id);
-  const vehicle = taxiVehiclesCollection.getByInternalId(data.vehicle_id);
+  const driver  = taxiDriversCollection.getByInternalId(String(data.driver_id));
+  const permit  = taxiPermitsCollection.getByInternalId(String(data.ads_id));
+  const vehicle = taxiVehiclesCollection.getByInternalId(String(data.vehicle_id));
 
   if (!driver)
   {

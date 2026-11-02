@@ -16,13 +16,13 @@ export default async function(collectionManager, eventManager) {
 
   console.log(`loading all taxi collections`);
 
-  const dataSourceCollection   = collectionManager.get('dataSources') || new DataSourceCollection([], {}, eventManager);
-  const taxiCollection         = collectionManager.get('taxis') || new TaxiCollection([], {}, eventManager);
+  const dataSourceCollection   = collectionManager.get('dataSources') ?? new DataSourceCollection([], {}, eventManager);
+  const taxiCollection         = collectionManager.get('taxis') ?? new TaxiCollection([], {}, eventManager);
 //   const taxiActivityCollection = new TaxiActivityCollection([], {}, eventManager);
-  const taxiDriverCollection   = collectionManager.get('taxiDrivers') || new TaxiDriverCollection([], {}, eventManager);
-  const taxiPermitCollection   = collectionManager.get('taxiPermits') || new TaxiPermitCollection([], {}, eventManager);
-  const taxiVehicleCollection  = collectionManager.get('taxiVehicles') || new TaxiVehicleCollection([], {}, eventManager);
-  const taxiOperatorCollection = collectionManager.get('taxiOperators') || new TaxiOperatorCollection([], {}, eventManager);
+  const taxiDriverCollection   = collectionManager.get('taxiDrivers') ?? new TaxiDriverCollection([], {}, eventManager);
+  const taxiPermitCollection   = collectionManager.get('taxiPermits') ?? new TaxiPermitCollection([], {}, eventManager);
+  const taxiVehicleCollection  = collectionManager.get('taxiVehicles') ?? new TaxiVehicleCollection([], {}, eventManager);
+  const taxiOperatorCollection = collectionManager.get('taxiOperators') ?? new TaxiOperatorCollection([], {}, eventManager);
 
   const [
     dataSources,
@@ -42,11 +42,11 @@ export default async function(collectionManager, eventManager) {
     taxiOperatorsDbQueries.collection()
   ]);
 
-  dataSourceCollection.loadFromCollection(dataSources);
+  dataSourceCollection.loadFromCollection(dataSources, collectionManager);
   collectionManager.add('dataSources', dataSourceCollection);
   console.log('loaded dataSources');
 
-  taxiCollection.loadFromCollection(taxis);
+  taxiCollection.loadFromCollection(taxis, collectionManager);
   collectionManager.add('taxis', taxiCollection);
   console.log('loaded taxis');
 
@@ -54,19 +54,19 @@ export default async function(collectionManager, eventManager) {
 //   collectionManager.add('taxiActivities', taxiActivityCollection);
 //   console.log('loaded taxi activities')
 
-  taxiDriverCollection.loadFromCollection(taxiDrivers);
+  taxiDriverCollection.loadFromCollection(taxiDrivers, collectionManager);
   collectionManager.add('taxiDrivers', taxiDriverCollection);
   console.log('loaded taxi drivers');
 
-  taxiPermitCollection.loadFromCollection(taxiPermits);
+  taxiPermitCollection.loadFromCollection(taxiPermits, collectionManager);
   collectionManager.add('taxiPermits', taxiPermitCollection);
   console.log('loaded taxi permits');
 
-  taxiVehicleCollection.loadFromCollection(taxiVehicles);
+  taxiVehicleCollection.loadFromCollection(taxiVehicles, collectionManager);
   collectionManager.add('taxiVehicles', taxiVehicleCollection);
   console.log('loaded taxi vehicles');
 
-  taxiOperatorCollection.loadFromCollection(taxiOperators);
+  taxiOperatorCollection.loadFromCollection(taxiOperators, collectionManager);
   collectionManager.add('taxiOperators', taxiOperatorCollection);
   console.log('loaded taxi operators');
 
