@@ -9,7 +9,7 @@ import serviceLocator          from 'chaire-lib-common/lib/utils/ServiceLocator'
 import { fileManager }         from 'chaire-lib-backend/lib/utils/filesystem/fileManager';
 import taxiOperatorsDbQueries  from '../../models/db/taxiOperators.db.queries';
 
-class OctaviTaxiDataImporter extends CollectionImporter {
+export class OctaviTaxiDataImporter extends CollectionImporter {
 
   constructor(attributes) {
 
