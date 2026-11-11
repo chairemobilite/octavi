@@ -9,11 +9,8 @@ import { getFilterIdx }      from '../../../services/ui/utils'
 import AdvancedModal         from '../../AdvancedModal'
 import serviceLocator        from 'chaire-lib-common/lib/utils/ServiceLocator';
 import octaviParameters      from '../../../services/ui/OctaviParameters';
-import { _isBlank }          from 'chaire-lib-common/lib/utils/LodashExtensions';
 import { LoadingPage } from 'chaire-lib-frontend/lib/components/pages';
 
-// this file contains SM id of aggrgetation i.e. mtl island north shore and south shore
-import * as aggregatedzones from '../../../config/zonesSelection.json';
 class SpatialFilterMap extends React.Component {
     constructor(props) {
         super(props);
@@ -30,8 +27,7 @@ class SpatialFilterMap extends React.Component {
             zoneType: null
         };
 
-        // this.zone_data = { features: [], type    : "FeatureCollection" }
-        this.zone_data = this.loadZones_lvl1()
+        this.zoneDataSource = this.loadZoneDataSource()
 
         this.updateFilter          = this.updateFilter.bind(this);
         this.handleClose           = this.handleClose.bind(this);
@@ -105,30 +101,15 @@ class SpatialFilterMap extends React.Component {
     }
 
     enableSpatialFilter() {
-        this.zone_data = this.loadZones_lvl1()
+        this.zoneDataSource = this.loadZoneDataSource()
         this.setState({ isEnabled: true})
     }
 
-    loadZones_lvl1() {
-        let features = (serviceLocator.collectionManager.has('zones'))
-          ? serviceLocator.collectionManager.get('zones').features
-          : []
-        features = this.addFeaturesDataProp('SM', features)
-        return {
-            features: features,
-            type    : "FeatureCollection"
-        }
-    }
-
-    addFeaturesDataProp (propName, features) {
-        return features.map(function(item){
-            const newProps = {...item.properties}
-            newProps[propName] = item.properties.data[propName]
-            return {
-                ...item,
-                properties : newProps
-            }
-        })
+    loadZoneDataSource() {
+        const zones = serviceLocator.collectionManager.has('zones')
+            ? serviceLocator.collectionManager.get('zones')
+            : null;
+        return zones ? zones.toGeojsonSimplified() : { type: 'FeatureCollection', features: [] };
     }
 
     renderContainer() {
@@ -139,42 +120,16 @@ class SpatialFilterMap extends React.Component {
             destination: this.state.filters[filterIdx] && this.state.filters[filterIdx][`selectedDestinationDistricts`] ? this.state.filters[filterIdx][`selectedDestinationDistricts`] : []
         }
 
-        const groupedZones = [{
-            name : "northShore",
-            ids : aggregatedzones.northShore,
-            propName : "SM"
-        },{
-            name : "southShore",
-            ids : aggregatedzones.southShore,
-            propName : "SM"
-        },{
-            name : "mtl",
-            ids : aggregatedzones.mtl,
-            propName : "SM"
-        },{
-            name : "outterCMM",
-            ids : ["noMatchFound"],
-            propName : "raw"
-        }]
-
+        console.log('isEnabled?: ', this.state.isEnabled);
         return (
             <div style={{width:"80vw", height:"70vh", position:"relative"}}>
 
                 {this.state.isEnabled &&
                     <ZonesInteractiveMap
-                        t                       = {this.props.t}
-                        data                    = {this.zone_data}
-                        lvl_0_label_key         = "SR"
-                        aggregations            = {[{level: 1, aggregator:"SM", label_key:"SM_name"}]}
-                        aggregationLocalPrefix  = 'octavi:filters:spatial:mapAggregation'
-                        defaultLevel            = {1}
-                        section                 = {this.props.activeSection}
+                        zoneDataSource          = {this.zoneDataSource}
                         style                   = {{height:"100%", zIndex:2, position: "absolute"}}
                         selected                = {selected}
-                        allowComplexUi          = {true}
                         zoneType                = {this.state.zoneType}
-                        groupedZones            = {groupedZones}
-                        groupedZonesLocalPrefix = 'octavi:filters:spatial:groupedZones'
                     />
                 }
 
