@@ -33,7 +33,6 @@ import {
 } from 'chaire-lib-frontend/lib/services/dashboard/DashboardContribution';
 import DataSourceCollection from 'chaire-lib-common/lib/services/dataSource/DataSourceCollection';
 import ZoneGeojsonCollection from 'octavi-common/lib/services/zones/ZoneGeojsonCollection';
-import { _isBlank } from 'chaire-lib-common/lib/utils/LodashExtensions';
 import { GenericAttributes } from 'chaire-lib-common/lib/utils/objects/GenericObject';
 import { ObjectWithHistory } from 'chaire-lib-common/lib/utils/objects/ObjectWithHistory';
 
