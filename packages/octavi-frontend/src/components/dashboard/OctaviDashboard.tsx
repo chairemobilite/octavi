@@ -10,7 +10,7 @@ import io, { Socket } from 'socket.io-client';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import EventEmitter from 'events';
 
-import { MainMapProps } from 'transition-frontend/lib/components/map/TransitionMainMap';
+import { MainMapProps } from '../map/OctaviMainMap';
 import FullSizePanel from 'chaire-lib-frontend/lib/components/dashboard/FullSizePanel';
 import { LoadingPage } from 'chaire-lib-frontend/lib/components/pages';
 import Toolbar from 'chaire-lib-frontend/lib/components/dashboard/Toolbar';

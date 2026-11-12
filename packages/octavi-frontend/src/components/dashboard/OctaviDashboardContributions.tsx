@@ -15,7 +15,7 @@ import {
 import MenuBar from 'transition-frontend/lib/components/dashboard/TransitionMenuBar';
 //import Toolbar from './OctaviToolbar';
 //import FullSizePanel from './OctaviFullSizePanel';
-import FullSizePanel from 'octavi-legacy/lib/components/dashboard/OctaviFullSizePanel';
+import FullSizePanel from './OctaviFullSizePanel';
 import RightPanel from 'octavi-legacy/lib/components/dashboard/OctaviRightPanel';
 
 /**

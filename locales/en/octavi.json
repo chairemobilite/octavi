@@ -330,7 +330,10 @@
   "maps": {
       "popup": {
           "SMName": "Census tract",
-          "SRName": "Municipal tract"
+          "SRName": "Municipal tract",
+          "name": "Name",
+          "shortname": "Code",
+          "value": "Value"
       }
   },
 

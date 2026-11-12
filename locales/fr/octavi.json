@@ -330,7 +330,10 @@
   "maps": {
       "popup": {
           "SMName": "Secteur de Recensement",
-          "SRName": "Secteur Municipal"
+          "SRName": "Secteur Municipal",
+          "name": "Nom",
+          "shortname": "Code",
+          "value": "Valeur"
       }
   },
 
