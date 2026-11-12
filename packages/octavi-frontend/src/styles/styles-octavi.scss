@@ -1,5 +1,9 @@
 @use '~chaire-lib-frontend/lib/styles/settings' as *;
 
+:root {
+  color-scheme: dark;
+}
+
 ._three_columns {
   width: 32%;
 }
