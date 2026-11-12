@@ -21,7 +21,7 @@ const defaultSectionsConfig = {
         localizedTitle: 'octavi:Map',
         iconWhite: '/dist/images/icons/interface/accessibility_map_white.svg',
         iconBlack: '/dist/images/icons/interface/accessibility_map_black.svg',
-        showFullSizePanel: false,
+        showFullSizePanel: true,
         hasMapLayers: true
     }
 };

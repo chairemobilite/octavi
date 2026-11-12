@@ -13,7 +13,7 @@ import { BrowserRouter } from 'react-router';
 
 import i18n from 'chaire-lib-frontend/lib/config/i18n.config';
 import OctaviRouter from './components/routers/OctaviRouter';
-import MainMap from 'transition-frontend/lib/components/map/TransitionMainMap';
+import MainMap from './components/map/OctaviMainMap';
 import configureStore from 'chaire-lib-frontend/lib/store/configureStore';
 import { LoadingPage } from 'chaire-lib-frontend/lib/components/pages';
 import config from 'chaire-lib-frontend/lib/config/project.config';

@@ -19,7 +19,7 @@ import UnconfirmedPage from 'chaire-lib-frontend/lib/components/pages/Unconfirme
 import PrivateRoute from 'chaire-lib-frontend/lib/components/routers/PrivateRoute';
 import PublicRoute from 'chaire-lib-frontend/lib/components/routers/PublicRoute';
 import { DashboardContribution } from 'chaire-lib-frontend/lib/services/dashboard/DashboardContribution';
-import { MainMapProps } from 'transition-frontend/lib/components/map/TransitionMainMap';
+import { MainMapProps } from '../map/OctaviMainMap';
 
 type TransitionRouterProps = {
     contributions: DashboardContribution[];
