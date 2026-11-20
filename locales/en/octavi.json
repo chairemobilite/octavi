@@ -291,6 +291,10 @@
         "origin": "Origin",
         "destination": "Destination",
         "select": "Select districts",
+        "initializeSelection": "Reinitialize selection",
+        "initializeSelectionConfirmation": "Are you sure you want to clear the {{zoneType}} selection?",
+        "originSelectionType": "origin",
+        "destinationSelectionType": "destination",
         "map": "Select filter districts",
         "mapAggregation": {
             "lvl0":"Census tract",
@@ -326,7 +330,10 @@
   "maps": {
       "popup": {
           "SMName": "Census tract",
-          "SRName": "Municipal tract"
+          "SRName": "Municipal tract",
+          "name": "Name",
+          "shortname": "Code",
+          "value": "Value"
       }
   },
 

@@ -291,6 +291,10 @@
         "origin": "Origine",
         "destination": "Destination",
         "select": "Sélectionner les zones",
+        "initializeSelection": "Ré-initialiser la sélection",
+        "initializeSelectionConfirmation": "Voulez-vous vraiment effacer la sélection {{zoneType}} ?",
+        "originSelectionType": "des origines",
+        "destinationSelectionType": "des destinations",
         "map": "Sélectionner les zones du filtre",
         "mapAggregation": {
             "lvl0":"Secteur de Recensement",
@@ -326,7 +330,10 @@
   "maps": {
       "popup": {
           "SMName": "Secteur de Recensement",
-          "SRName": "Secteur Municipal"
+          "SRName": "Secteur Municipal",
+          "name": "Nom",
+          "shortname": "Code",
+          "value": "Valeur"
       }
   },
 

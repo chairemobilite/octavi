@@ -158,6 +158,19 @@
   }
 }
 
+.zone-selection-button {
+    box-sizing: border-box;
+    border-radius: 0.2rem;
+    cursor: pointer;
+    padding: 0.3rem 0.8rem;
+    transition: background-color 150ms ease, border-color 150ms ease;
+
+    &:disabled {
+        cursor: default;
+        font-weight: 700;
+    }
+}
+
 .filter_submit {
     cursor: context-menu;
     display: block;
@@ -187,6 +200,10 @@
     border-radius: 3px;
     width: 13em;
     font-size: $font-size-xxsmall;
+}
+
+.maplibregl-popup-close-button {
+    display: block;
 }
 
 

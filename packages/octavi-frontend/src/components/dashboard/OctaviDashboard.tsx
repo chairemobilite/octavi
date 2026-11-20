@@ -10,7 +10,7 @@ import io, { Socket } from 'socket.io-client';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import EventEmitter from 'events';
 
-import { MainMapProps } from 'transition-frontend/lib/components/map/TransitionMainMap';
+import { MainMapProps } from '../map/OctaviMainMap';
 import FullSizePanel from 'chaire-lib-frontend/lib/components/dashboard/FullSizePanel';
 import { LoadingPage } from 'chaire-lib-frontend/lib/components/pages';
 import Toolbar from 'chaire-lib-frontend/lib/components/dashboard/Toolbar';
@@ -33,8 +33,6 @@ import {
 } from 'chaire-lib-frontend/lib/services/dashboard/DashboardContribution';
 import DataSourceCollection from 'chaire-lib-common/lib/services/dataSource/DataSourceCollection';
 import ZoneGeojsonCollection from 'octavi-common/lib/services/zones/ZoneGeojsonCollection';
-import { _isBlank } from 'chaire-lib-common/lib/utils/LodashExtensions';
-import { featureAggregator } from 'octavi-legacy/lib/services/ui/utils';
 import { GenericAttributes } from 'chaire-lib-common/lib/utils/objects/GenericObject';
 import { ObjectWithHistory } from 'chaire-lib-common/lib/utils/objects/ObjectWithHistory';
 
@@ -252,21 +250,6 @@ class Dashboard extends React.Component<DashboardProps, DashboardState> {
         if (zonesDs !== undefined) {
             await zoneGeojsonCollection.loadFromServer(serviceLocator.socketEventManager, zonesDs.getId());
             serviceLocator.collectionManager.add('zones', zoneGeojsonCollection);
-            //create zone agregation
-            serviceLocator.eventManager.emit('progress', { name: 'OctaviMakingSpationAggrgegation', progress: 0.0 });
-            const aggregations = Preferences.get('spatialAggregations');
-            const aggregatedZones = {};
-            if (!_isBlank(aggregations)) {
-                for (const aggregation of aggregations) {
-                    aggregatedZones[`data_lvl${aggregation.level}`] = featureAggregator(
-                        aggregation,
-                        zoneGeojsonCollection
-                    );
-                }
-            }
-            serviceLocator.collectionManager.add('aggregatedZones', aggregatedZones);
-
-            serviceLocator.eventManager.emit('progress', { name: 'OctaviMakingSpationAggrgegation', progress: 1.0 });
             serviceLocator.eventManager.emit('taxi.filter.spatial.enable');
         }
     };
